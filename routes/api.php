@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CrewController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CrewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('crew/index', [CrewController::class, 'index']);
 
 Route::post('crew/create', [CrewController::class, 'create']);
+
+route::delete('/reset',[CrewController::class, 'delete']);
+

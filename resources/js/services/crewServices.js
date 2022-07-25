@@ -14,12 +14,16 @@ export default function useCrew() {
 
     const storeCrew = async (data) => {
         await axios.post('api/crew/create', data)
-        await router.push({ name:'welcome'})
+    };
+
+    const destroyCrew = async () => {
+        await axios.delete('api/reset');
     };
 
     return {
         argonautes,
         getCrew,
         storeCrew,
+        destroyCrew,
     };
 }

@@ -1,14 +1,16 @@
 <template>
     <header>
-        <h1>
-            <img src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png"
-                alt="Wild Code School logo" />
-            Les Argonautes
-        </h1>
+        <div class="sm:flex sm:flex-row sm:justify-center grid place-items-center">
+                <img @click="deleteCrew"
+                    src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png"
+                    alt="Wild Code School logo" 
+                />
+            <h1 class="sm:ml-2">Les Argonautes</h1>
+        </div>
     </header>
 
     <AddArgo></AddArgo>
-    
+
     <div class="w-90 mt-10">
         <h2>Membres de l'équipage</h2>
         <div class="wrapper mt-10">
@@ -31,18 +33,26 @@ import AddArgo from "./AddArgo.vue";
 
 export default {
     setup() {
-        const { argonautes, getCrew } = useCrew();
+
+        const { argonautes, getCrew, destroyCrew } = useCrew();
 
         onMounted(getCrew());
 
-        onUpdated(getCrew());
+        const deleteCrew = async () => {
+            if (confirm("Supprimer l\'équipage ?")){
+            await destroyCrew();
+            await getCrew();
+            } 
+            return;
+        }
 
         return {
             argonautes,
+            deleteCrew,
         };
     },
     components: {
-        AddArgo
+        AddArgo,
     },
 }
 
@@ -53,15 +63,11 @@ export default {
 header {
     background: #f4f4f4;
     text-align: center;
-    padding: 2em;
+    padding: 5em;
 }
 
 header img {
-    max-width: 96px;
-}
-
-header h1 {
-    font-size: 4em;
+    max-width: 150px;
 }
 
 
@@ -69,7 +75,10 @@ footer {
     background: red;
 }
 
-h1, h2 {
+h1 {
+    font-size: 3em;
+}
+h2 {
     font-size: 2em;
     text-align: center;
 }
